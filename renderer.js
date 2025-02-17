@@ -1,5 +1,6 @@
 const { ipcRenderer } = require('electron');
 
+// Select Elements
 const descriptionInput = document.getElementById('description');
 const amountInput = document.getElementById('amount');
 const categorySelect = document.getElementById('category');
@@ -8,27 +9,37 @@ const balanceElement = document.getElementById('balance');
 
 let transactions = [];
 
+// Load Transactions on App Start
 async function loadTransactions() {
     transactions = await ipcRenderer.invoke('load-transactions');
     updateUI();
 }
 
+// Add Transaction Function
 function addTransaction() {
     const description = descriptionInput.value.trim();
     const amount = parseFloat(amountInput.value);
     const category = categorySelect.value;
 
-    if (description === "" || isNaN(amount)) return alert("Please enter valid details!");
+    if (description === "" || isNaN(amount)) {
+        alert("Please enter a valid description and amount!");
+        return;
+    }
 
     const transaction = { description, amount, category };
     transactions.push(transaction);
+
+    // Send transaction to main process to save in JSON
     ipcRenderer.send('save-transaction', transaction);
     
     updateUI();
+
+    // Clear Input Fields
     descriptionInput.value = "";
     amountInput.value = "";
 }
 
+// Update UI Function
 function updateUI() {
     transactionList.innerHTML = "";
     let balance = 0;
@@ -43,27 +54,10 @@ function updateUI() {
     });
 
     balanceElement.textContent = balance;
-    updateChart();
 }
 
-function updateChart() {
-    const ctx = document.getElementById('expenseChart').getContext('2d');
-    const categories = { food: 0, rent: 0, entertainment: 0, others: 0 };
+// Ensure "Add Transaction" button works
+document.getElementById("addTransactionBtn").addEventListener("click", addTransaction);
 
-    transactions.forEach((t) => {
-        if (t.category !== "income") categories[t.category] += t.amount;
-    });
-
-    new Chart(ctx, {
-        type: 'pie',
-        data: {
-            labels: Object.keys(categories),
-            datasets: [{
-                data: Object.values(categories),
-                backgroundColor: ['red', 'blue', 'green', 'purple']
-            }]
-        }
-    });
-}
-
+// Load Transactions on Start
 loadTransactions();
