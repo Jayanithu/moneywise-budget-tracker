@@ -1,19 +1,133 @@
-body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    background: #f8f9fa;
+/* Global Styles */
+:root {
+    --background-light: #f8f9fa;
+    --text-light: #333;
+    --card-light: #ffffff;
+    --button-light: #007bff;
+    --button-hover-light: #0056b3;
+
+    --background-dark: #121212;
+    --text-dark: #ffffff;
+    --card-dark: #1e1e1e;
+    --button-dark: #ff9800;
+    --button-hover-dark: #e68900;
 }
 
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: var(--background-light);
+    color: var(--text-light);
+    text-align: center;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Dark Mode */
+body.dark-mode {
+    background-color: var(--background-dark);
+    color: var(--text-dark);
+}
+
+/* Container */
 .container {
     width: 60%;
     margin: auto;
+    padding: 20px;
 }
 
-.form input, .form select, .form button {
-    margin: 5px;
+/* Form Styling */
+.form {
+    background-color: var(--card-light);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s;
+}
+
+body.dark-mode .form {
+    background-color: var(--card-dark);
+}
+
+/* Input Fields */
+input, select {
+    width: 90%;
     padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
 }
 
+body.dark-mode input, 
+body.dark-mode select {
+    background-color: #333;
+    color: #fff;
+    border: 1px solid #666;
+}
+
+/* Buttons */
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--button-light);
+    color: #fff;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+}
+
+button:hover {
+    background-color: var(--button-hover-light);
+}
+
+body.dark-mode button {
+    background-color: var(--button-dark);
+}
+
+body.dark-mode button:hover {
+    background-color: var(--button-hover-dark);
+}
+
+/* Balance Display */
+.balance {
+    margin-top: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    background: linear-gradient(45deg, #28a745, #218838);
+    color: #fff;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+body.dark-mode .balance {
+    background: linear-gradient(45deg, #ff9800, #e68900);
+}
+
+/* Transaction History */
+.transactions {
+    margin-top: 20px;
+    background-color: var(--card-light);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s;
+}
+
+body.dark-mode .transactions {
+    background-color: var(--card-dark);
+}
+
+.transactions h2 {
+    color: var(--text-light);
+}
+
+body.dark-mode .transactions h2 {
+    color: var(--text-dark);
+}
+
+/* Transaction List */
 .transactions ul {
     list-style-type: none;
     padding: 0;
@@ -22,7 +136,63 @@ body {
 .transactions li {
     padding: 10px;
     border-bottom: 1px solid #ddd;
+    font-size: 16px;
+    display: flex;
+    justify-content: space-between;
 }
 
-.income { color: green; }
-.expense { color: red; }
+.transactions li:last-child {
+    border-bottom: none;
+}
+
+/* Income & Expense Colors */
+.income {
+    color: #28a745;
+    font-weight: bold;
+}
+
+.expense {
+    color: #dc3545;
+    font-weight: bold;
+}
+
+/* Dark Mode Toggle */
+.toggle-container {
+    margin-top: 20px;
+}
+
+.toggle-btn {
+    padding: 10px;
+    background-color: var(--button-light);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+}
+
+.toggle-btn:hover {
+    background-color: var(--button-hover-light);
+}
+
+body.dark-mode .toggle-btn {
+    background-color: var(--button-dark);
+}
+
+body.dark-mode .toggle-btn:hover {
+    background-color: var(--button-hover-dark);
+}
+
+/* Chart Styling */
+#expenseChart {
+    margin-top: 20px;
+    max-width: 100%;
+    background-color: var(--card-light);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+body.dark-mode #expenseChart {
+    background-color: var(--card-dark);
+}
