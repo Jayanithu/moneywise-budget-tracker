@@ -1,0 +1,28 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background: #f8f9fa;
+}
+
+.container {
+    width: 60%;
+    margin: auto;
+}
+
+.form input, .form select, .form button {
+    margin: 5px;
+    padding: 10px;
+}
+
+.transactions ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.transactions li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.income { color: green; }
+.expense { color: red; }
