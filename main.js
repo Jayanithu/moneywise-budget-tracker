@@ -16,20 +16,23 @@ app.whenReady().then(() => {
     mainWindow.loadFile('index.html');
 });
 
+// Handle Saving Transaction to JSON File
 ipcMain.on('save-transaction', (event, transaction) => {
     const filePath = path.join(__dirname, 'data.json');
-    
+
     fs.readFile(filePath, (err, data) => {
         let transactions = [];
         if (!err) transactions = JSON.parse(data);
         
         transactions.push(transaction);
+
         fs.writeFile(filePath, JSON.stringify(transactions, null, 2), (err) => {
             if (err) console.error('Error saving transaction:', err);
         });
     });
 });
 
+// Load Transactions
 ipcMain.handle('load-transactions', async () => {
     const filePath = path.join(__dirname, 'data.json');
 
