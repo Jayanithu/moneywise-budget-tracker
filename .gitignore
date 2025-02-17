@@ -1,0 +1,15 @@
+# Node.js dependencies
+node_modules/
+
+# Electron build files
+dist/
+out/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS-specific files
+.DS_Store
+Thumbs.db
