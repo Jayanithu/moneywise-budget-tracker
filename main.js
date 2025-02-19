@@ -31,7 +31,10 @@ function createWindow() {
     });
 
     mainWindow.loadFile('index.html');
-    mainWindow.webContents.openDevTools();
+
+    if (process.env.NODE_ENV === 'development') {
+        mainWindow.webContents.openDevTools();
+    }
 }
 
 app.whenReady().then(async () => {
@@ -51,18 +54,13 @@ ipcMain.handle('load-transactions', async () => {
 
 ipcMain.handle('save-transaction', async (event, transaction) => {
     try {
-        let transactions = [];
-        try {
-            const data = await fs.readFile(TRANSACTIONS_FILE, 'utf8');
-            transactions = JSON.parse(data);
-        } catch (error) {
-            console.error('Error reading transactions:', error);
-        }
+        const data = await fs.readFile(TRANSACTIONS_FILE, 'utf8');
+        let transactions = JSON.parse(data);
         transactions.push(transaction);
         await fs.writeFile(TRANSACTIONS_FILE, JSON.stringify(transactions, null, 2));
         return transactions;
     } catch (error) {
-        console.error('Error in save-transaction handler:', error);
+        console.error('Error saving transaction:', error);
         throw error;
     }
 });
