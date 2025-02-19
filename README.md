@@ -42,6 +42,8 @@ npm start
 Feel free to contribute! Submit a pull request with new features or improvements. 💡
 
 ## Author 💻
-Created by **[[@Jayanithu](hthttps://github.com/Jayanithu)]**. Happy Coding! 🎉
+Created by **[[@Jayanithu](hthttps://github.com/Jayanithu)]**. 
+
+Happy Coding! 🎉
 
 
