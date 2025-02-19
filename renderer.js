@@ -9,7 +9,9 @@ async function loadTransactions() {
     }
 }
 
-async function addTransaction() {
+async function addTransaction(e) {
+    if (e) e.preventDefault();
+    
     const descriptionInput = document.getElementById('description');
     const amountInput = document.getElementById('amount');
     const categorySelect = document.getElementById('category');
@@ -48,6 +50,8 @@ function updateUI() {
     const transactionList = document.getElementById('transaction-list');
     const balanceElement = document.getElementById('balance');
     
+    if (!transactionList || !balanceElement) return;
+    
     transactionList.innerHTML = "";
     let balance = 0;
 
@@ -85,9 +89,8 @@ async function deleteTransaction(id) {
 }
 
 function resetForm() {
-    document.getElementById('description').value = '';
-    document.getElementById('amount').value = '';
-    document.getElementById('category').value = 'expense';
+    const form = document.getElementById('transactionForm');
+    if (form) form.reset();
 }
 
 function escapeHtml(unsafe) {
@@ -101,11 +104,7 @@ function escapeHtml(unsafe) {
 
 function toggleDarkMode(event) {
     const isDarkMode = event.target.checked;
-    if (isDarkMode) {
-        document.body.classList.add('dark-mode');
-    } else {
-        document.body.classList.remove('dark-mode');
-    }
+    document.body.classList.toggle('dark-mode', isDarkMode);
     localStorage.setItem('darkMode', isDarkMode);
 }
 
@@ -114,20 +113,20 @@ document.addEventListener('DOMContentLoaded', () => {
     
     const themeToggle = document.getElementById('theme-toggle');
     if (themeToggle) {
-        // Set initial state based on localStorage
         const isDarkMode = localStorage.getItem('darkMode') === 'true';
         themeToggle.checked = isDarkMode;
-        if (isDarkMode) {
-            document.body.classList.add('dark-mode');
-        }
-
-        // Add event listener
+        document.body.classList.toggle('dark-mode', isDarkMode);
         themeToggle.addEventListener('change', toggleDarkMode);
     }
 
     const addTransactionBtn = document.getElementById('addTransactionBtn');
     if (addTransactionBtn) {
-        addTransactionBtn.addEventListener('click', (e) => {
+        addTransactionBtn.addEventListener('click', addTransaction);
+    }
+
+    const form = document.getElementById('transactionForm');
+    if (form) {
+        form.addEventListener('submit', (e) => {
             e.preventDefault();
             addTransaction();
         });
