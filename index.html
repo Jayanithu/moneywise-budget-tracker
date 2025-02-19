@@ -3,40 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MoneyWise - Budget Tracker</title>
-    <link rel="stylesheet" href="style.css">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com">
+    <title>Expense Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
-    <h1>MoneyWise - Budget Tracker</h1>
-
-    <div class="toggle-container">
-        <button class="toggle-btn" onclick="toggleDarkMode()">Toggle Dark Mode</button>
-    </div>
-
     <div class="container">
-        <div class="form">
-            <input type="text" id="description" placeholder="Enter Description">
-            <input type="number" id="amount" placeholder="Enter Amount">
-            <select id="category">
-                <option value="income">Income</option>
-                <option value="food">Food</option>
-                <option value="rent">Rent</option>
-                <option value="entertainment">Entertainment</option>
-                <option value="others">Others</option>
-            </select>
-            <button onclick="addTransaction()">Add Transaction</button>
+        <div class="theme-toggle-wrapper">
+            <label class="theme-switch">
+                <input type="checkbox" id="theme-toggle" onclick="toggleDarkMode()">
+                <span class="slider">
+                    <i data-lucide="sun" class="light-icon"></i>
+                    <i data-lucide="moon" class="dark-icon"></i>
+                </span>
+            </label>
         </div>
 
-        <div class="balance">
-            <h2>Balance: $<span id="balance">0</span></h2>
+        <div class="header">
+            <h1>Moneywise</h1>
+            <h2>Expense Tracker</h2>
+        </div>
+
+        <div class="balance-card">
+            <div class="balance-title">Current Balance</div>
+            <div class="balance-amount">$<span id="balance">0.00</span></div>
+        </div>
+
+        <div class="transaction-form">
+            <div class="form-group">
+                <label for="description">Description</label>
+                <input type="text" id="description" placeholder="Enter description">
+            </div>
+
+            <div class="form-group">
+                <label for="amount">Amount</label>
+                <input type="number" id="amount" placeholder="Enter amount">
+            </div>
+
+            <div class="form-group">
+                <label for="category">Category</label>
+                <select id="category">
+                    <option value="expense">Expense</option>
+                    <option value="income">Income</option>
+                </select>
+            </div>
+
+            <button id="addTransactionBtn">Add Transaction</button>
         </div>
 
         <div class="transactions">
-            <h2>Transaction History</h2>
-            <ul id="transaction-list"></ul>
+            <h2>Transactions</h2>
+            <ul id="transaction-list" class="transaction-list">
+                <!-- Transactions will be added here dynamically -->
+            </ul>
         </div>
-
-        <canvas id="expenseChart"></canvas>
     </div>
 
     <script src="renderer.js"></script>
