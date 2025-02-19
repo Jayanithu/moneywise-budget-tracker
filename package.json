@@ -1,11 +1,10 @@
 {
   "name": "moneywise-budget-tracker",
   "version": "1.0.0",
-  "description": "",
+  "description": "A simple budget tracker app built with Electron.js.",
   "main": "main.js",
   "scripts": {
-    "start": "electron .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "electron ."
   },
   "keywords": [],
   "author": "",
