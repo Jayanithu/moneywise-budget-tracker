@@ -4,16 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com">
-    <title>Expense Tracker</title>
+    <title>Moneywise Budget Tracker</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
     <div class="container">
         <div class="theme-toggle-wrapper">
             <label class="theme-switch">
-                <input type="checkbox" id="theme-toggle" onclick="toggleDarkMode()">
+                <input type="checkbox" id="theme-toggle">
                 <span class="slider">
                     <i data-lucide="sun" class="light-icon"></i>
                     <i data-lucide="moon" class="dark-icon"></i>
@@ -22,8 +22,12 @@
         </div>
 
         <div class="header">
-            <h1>Moneywise</h1>
-            <h2>Expense Tracker</h2>
+            <div class="logo-container">
+                <svg class="logo" width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 1V23M17 5H9.5C8.57174 5 7.6815 5.36875 7.02513 6.02513C6.36875 6.6815 6 7.57174 6 8.5C6 9.42826 6.36875 10.3185 7.02513 10.9749C7.6815 11.6313 8.57174 12 9.5 12H14.5C15.4283 12 16.3185 12.3687 16.9749 13.0251C17.6313 13.6815 18 14.5717 18 15.5C18 16.4283 17.6313 17.3185 16.9749 17.9749C16.3185 18.6313 15.4283 19 14.5 19H6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <h1>Moneywise Budget Tracker</h1>
+            </div>
         </div>
 
         <div class="balance-card">
@@ -31,36 +35,33 @@
             <div class="balance-amount">$<span id="balance">0.00</span></div>
         </div>
 
-        <div class="transaction-form">
+        <form id="transactionForm" class="transaction-form">
             <div class="form-group">
                 <label for="description">Description</label>
-                <input type="text" id="description" placeholder="Enter description">
+                <input type="text" id="description" required placeholder="Enter description">
             </div>
 
             <div class="form-group">
                 <label for="amount">Amount</label>
-                <input type="number" id="amount" placeholder="Enter amount">
+                <input type="number" id="amount" required step="0.01" placeholder="Enter amount">
             </div>
 
             <div class="form-group">
                 <label for="category">Category</label>
-                <select id="category">
+                <select id="category" required>
                     <option value="expense">Expense</option>
                     <option value="income">Income</option>
                 </select>
             </div>
 
-            <button id="addTransactionBtn">Add Transaction</button>
-        </div>
+            <button type="submit" id="addTransactionBtn">Add Transaction</button>
+        </form>
 
         <div class="transactions">
             <h2>Transactions</h2>
-            <ul id="transaction-list" class="transaction-list">
-                <!-- Transactions will be added here dynamically -->
-            </ul>
+            <ul id="transaction-list" class="transaction-list"></ul>
         </div>
     </div>
-
     <script src="renderer.js"></script>
 </body>
 </html>
