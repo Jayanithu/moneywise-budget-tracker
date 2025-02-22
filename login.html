@@ -72,31 +72,15 @@
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="avatar">Profile Picture</label>
-                    <div class="avatar-upload">
-                        <img id="avatarPreview" src="assets/default-avatar.png" alt="Avatar preview">
-                        <input type="file" id="avatar" accept="image/*">
-                        <button type="button" class="upload-button">
-                            <i data-lucide="upload"></i>
-                            Choose Image
-                        </button>
-                    </div>
-                </div>
-
                 <button type="submit" class="auth-button">Create Account</button>
             </form>
 
             <div class="social-auth">
                 <p>Or continue with</p>
                 <div class="social-buttons">
-                    <button type="button" class="social-button google">
-                        <img src="assets/google-icon.svg" alt="Google">
+                    <button type="button" class="social-button google" id="googleLogin">
+                        <img src="assets/google-icon.png" alt="Google">
                         Google
-                    </button>
-                    <button type="button" class="social-button github">
-                        <img src="assets/github-icon.svg" alt="GitHub">
-                        GitHub
                     </button>
                 </div>
             </div>
@@ -104,4 +88,4 @@
     </div>
     <script src="auth.js"></script>
 </body>
-</html> 
+</html>
