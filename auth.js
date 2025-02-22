@@ -118,5 +118,67 @@ function readFileAsDataURL(file) {
         reader.onload = () => resolve(reader.result);
         reader.onerror = reject;
         reader.readAsDataURL(file);
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const tabs = document.querySelectorAll('.auth-tab');
+            const forms = document.querySelectorAll('.auth-form');
+        
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const targetForm = tab.dataset.tab;
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    forms.forEach(form => {
+                        form.classList.remove('active');
+                        if (form.id === `${targetForm}Form`) {
+                            form.classList.add('active');
+                        }
+                    });
+                });
+            });
+        
+            document.getElementById('loginForm').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const email = document.getElementById('loginEmail').value;
+                const password = document.getElementById('loginPassword').value;
+                try {
+                    const result = await window.electronAPI.login({ email, password });
+                    if (!result.success) alert(result.error);
+                } catch (error) {
+                    console.error('Login failed:', error);
+                }
+            });
+        
+            document.getElementById('signupForm').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const name = document.getElementById('signupName').value;
+                const email = document.getElementById('signupEmail').value;
+                const password = document.getElementById('signupPassword').value;
+                try {
+                    const result = await window.electronAPI.signup({ name, email, password });
+                    if (!result.success) alert(result.error);
+                } catch (error) {
+                    console.error('Signup failed:', error);
+                }
+            });
+        
+            document.getElementById('googleLogin').addEventListener('click', async () => {
+                try {
+                    const result = await window.electronAPI.googleLogin();
+                    if (!result.success) alert(result.error);
+                } catch (error) {
+                    console.error('Google login failed:', error);
+                }
+            });
+        
+            document.querySelectorAll('.toggle-password').forEach(button => {
+                button.addEventListener('click', () => {
+                    const input = button.parentElement.querySelector('input');
+                    input.type = input.type === 'password' ? 'text' : 'password';
+                });
+            });
+        });
+        
     });
 } 
