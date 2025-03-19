@@ -28,40 +28,131 @@
                 </svg>
                 <h1>Moneywise Budget Tracker</h1>
             </div>
+            <nav class="main-nav">
+                <div class="nav-links">
+                    <a href="index.html" class="nav-link active">Dashboard</a>
+                    <a href="dashboard.html" class="nav-link">Analytics</a>
+                    <a href="settings.html" class="nav-link">Settings</a>
+                </div>
+            </nav>
         </div>
 
-        <div class="balance-card">
-            <div class="balance-title">Current Balance</div>
-            <div class="balance-amount">$<span id="balance">0.00</span></div>
+        <div class="metrics-container">
+            <div class="metric-card balance-metric">
+                <div class="metric-title">
+                    <i data-lucide="wallet" class="metric-icon"></i>
+                    Current Balance
+                </div>
+                <div class="metric-value">$<span id="balance">0.00</span></div>
+            </div>
+            
+            <div class="metric-card income">
+                <div class="metric-title">
+                    <i data-lucide="arrow-up-right" class="metric-icon"></i>
+                    Income
+                </div>
+                <div class="metric-value" id="total-income">$0.00</div>
+            </div>
+            
+            <div class="metric-card expense">
+                <div class="metric-title">
+                    <i data-lucide="arrow-down-left" class="metric-icon"></i>
+                    Expenses
+                </div>
+                <div class="metric-value" id="total-expenses">$0.00</div>
+            </div>
         </div>
 
-        <form id="transactionForm" class="transaction-form">
-            <div class="form-group">
-                <label for="description">Description</label>
-                <input type="text" id="description" required placeholder="Enter description">
+        <div class="content-grid">
+            <div class="card transaction-form-card">
+                <h2 class="card-title">
+                    <i data-lucide="plus-circle" class="card-icon"></i>
+                    Add Transaction
+                </h2>
+                <form id="transactionForm" class="transaction-form">
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <input type="text" id="description" required placeholder="Enter description">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="amount">Amount</label>
+                            <div class="input-with-icon">
+                                <i data-lucide="dollar-sign" class="input-icon"></i>
+                                <input type="number" id="amount" required step="0.01" placeholder="0.00">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="category">Category</label>
+                            <select id="category" required>
+                                <option value="expense">Expense</option>
+                                <option value="income">Income</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="date">Date</label>
+                        <div class="input-with-icon">
+                            <i data-lucide="calendar" class="input-icon"></i>
+                            <input type="date" id="date" required>
+                        </div>
+                    </div>
+
+                    <button type="submit" id="addTransactionBtn">
+                        <i data-lucide="plus"></i>
+                        Add Transaction
+                    </button>
+                </form>
             </div>
 
-            <div class="form-group">
-                <label for="amount">Amount</label>
-                <input type="number" id="amount" required step="0.01" placeholder="Enter amount">
+            <div class="card transactions-card">
+                <h2 class="card-title">
+                    <i data-lucide="list" class="card-icon"></i>
+                    Recent Transactions
+                </h2>
+                <div class="transactions-container">
+                    <ul id="transaction-list" class="transaction-list"></ul>
+                    <div id="empty-transactions" class="empty-state">
+                        <i data-lucide="inbox" class="empty-state-icon"></i>
+                        <h3>No transactions yet</h3>
+                        <p>Add your first transaction to get started</p>
+                    </div>
+                </div>
             </div>
-
-            <div class="form-group">
-                <label for="category">Category</label>
-                <select id="category" required>
-                    <option value="expense">Expense</option>
-                    <option value="income">Income</option>
-                </select>
-            </div>
-
-            <button type="submit" id="addTransactionBtn">Add Transaction</button>
-        </form>
-
-        <div class="transactions">
-            <h2>Transactions</h2>
-            <ul id="transaction-list" class="transaction-list"></ul>
         </div>
     </div>
     <script src="renderer.js"></script>
+    <script>
+        // Initialize Lucide icons
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            
+            // Theme toggle functionality
+            const themeToggle = document.getElementById('theme-toggle');
+            
+            // Check for saved theme preference or prefer-color-scheme
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            
+            if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+                document.body.classList.add('dark-mode');
+                themeToggle.checked = true;
+            }
+            
+            // Theme switch event listener
+            themeToggle.addEventListener('change', () => {
+                if (themeToggle.checked) {
+                    document.body.classList.add('dark-mode');
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    document.body.classList.remove('dark-mode');
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+        });
+    </script>
 </body>
 </html>
