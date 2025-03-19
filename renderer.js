@@ -2,6 +2,7 @@ let transactions = [];
 
 async function loadTransactions() {
     try {
+        // No need to check for userId
         transactions = await window.electronAPI.loadTransactions();
         updateUI();
     } catch (error) {
@@ -9,40 +10,85 @@ async function loadTransactions() {
     }
 }
 
-async function addTransaction(e) {
-    if (e) e.preventDefault();
+// Toast notification function
+function showToast(message, type = 'info') {
+    const toast = document.createElement('div');
+    toast.className = `toast ${type}`;
     
-    const descriptionInput = document.getElementById('description');
-    const amountInput = document.getElementById('amount');
-    const categorySelect = document.getElementById('category');
+    let icon = 'info';
+    if (type === 'success') icon = 'check-circle';
+    if (type === 'error') icon = 'alert-circle';
+    if (type === 'warning') icon = 'alert-triangle';
     
-    const description = descriptionInput.value.trim();
-    const amount = parseFloat(amountInput.value);
-    const category = categorySelect.value;
+    toast.innerHTML = `
+        <i data-lucide="${icon}" class="toast-icon"></i>
+        <span>${message}</span>
+    `;
+    
+    document.body.appendChild(toast);
+    lucide.createIcons();
+    
+    // Show the toast
+    setTimeout(() => {
+        toast.classList.add('show');
+    }, 10);
+    
+    // Hide and remove the toast after 3 seconds
+    setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => {
+            document.body.removeChild(toast);
+        }, 300);
+    }, 3000);
+}
 
-    if (description === "" || isNaN(amount)) {
-        alert("Please enter a valid description and amount!");
+// Use the toast notification when adding a transaction
+async function addTransaction(e) {
+    e.preventDefault();
+    
+    const description = document.getElementById('description').value;
+    const amount = parseFloat(document.getElementById('amount').value);
+    const category = document.getElementById('category').value;
+    const date = document.getElementById('date').value;
+    
+    if (!description || isNaN(amount) || !date) {
+        showToast('Please fill in all fields', 'error');
         return;
     }
-
+    
     const transaction = {
         id: Date.now(),
         description,
-        amount: Number(amount.toFixed(2)),
+        amount,
         category,
-        date: new Date().toISOString()
+        date
     };
-
+    
     try {
-        const result = await window.electronAPI.saveTransaction(transaction);
-        if (Array.isArray(result)) {
-            transactions = result;
-            updateUI();
-            resetForm();
-        }
+        transactions = await window.electronAPI.saveTransaction(transaction);
+        updateUI();
+        
+        // Reset form
+        document.getElementById('transaction-form').reset();
+        
+        showToast('Transaction added successfully', 'success');
     } catch (error) {
         console.error('Failed to save transaction:', error);
-        alert('Failed to save transaction. Please try again.');
+        showToast('Failed to save transaction', 'error');
+    }
+}
+
+// Use toast notification when deleting a transaction
+async function deleteTransaction(id) {
+    if (confirm('Are you sure you want to delete this transaction?')) {
+        try {
+            transactions = await window.electronAPI.deleteTransaction(id);
+            updateUI();
+            showToast('Transaction deleted', 'success');
+        } catch (error) {
+            console.error('Failed to delete transaction:', error);
+            showToast('Failed to delete transaction', 'error');
+        }
     }
 }
 
@@ -80,6 +126,7 @@ function updateUI() {
 
 async function deleteTransaction(id) {
     try {
+        // No need to pass userId
         transactions = await window.electronAPI.deleteTransaction(id);
         updateUI();
     } catch (error) {
