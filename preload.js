@@ -1,15 +1,23 @@
 const { contextBridge, ipcRenderer } = require('electron');
 
 contextBridge.exposeInMainWorld('electronAPI', {
-    // Auth methods
-    login: (credentials) => ipcRenderer.invoke('auth:login', credentials),
-    signup: (userData) => ipcRenderer.invoke('auth:signup', userData),
-    logout: () => ipcRenderer.invoke('auth:logout'),
-    
-    // Transaction methods
-    loadTransactions: (userId) => ipcRenderer.invoke('load-transactions', userId),
-    saveTransaction: (transaction, userId) => 
-        ipcRenderer.invoke('save-transaction', { transaction, userId }),
-    deleteTransaction: (id, userId) => 
-        ipcRenderer.invoke('delete-transaction', { id, userId })
+    // Transaction methods - removed userId parameter
+    loadTransactions: () => ipcRenderer.invoke('load-transactions'),
+    saveTransaction: (transaction) => 
+        ipcRenderer.invoke('save-transaction', { transaction }),
+    deleteTransaction: (id) => 
+        ipcRenderer.invoke('delete-transaction', { id }),
+        
+    // Budget methods - removed userId parameter
+    loadBudgets: () => ipcRenderer.invoke('load-budgets'),
+    saveBudgets: (budgets) => 
+        ipcRenderer.invoke('save-budgets', { budgets }),
+        
+    // Settings methods - removed userId parameter
+    loadSettings: () => ipcRenderer.invoke('load-settings'),
+    saveSettings: (settings) => 
+        ipcRenderer.invoke('save-settings', { settings }),
+        
+    // Data management - removed userId parameter
+    clearData: () => ipcRenderer.invoke('clear-data'),
 });
