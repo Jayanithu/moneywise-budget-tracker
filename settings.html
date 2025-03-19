@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com">
+    <title>Settings - Moneywise Budget Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="theme-toggle-wrapper">
+            <label class="theme-switch">
+                <input type="checkbox" id="theme-toggle">
+                <span class="slider">
+                    <i data-lucide="sun" class="light-icon"></i>
+                    <i data-lucide="moon" class="dark-icon"></i>
+                </span>
+            </label>
+        </div>
+
+        <nav class="main-nav">
+            <div class="logo-container">
+                <svg class="logo" width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 1V23M17 5H9.5C8.57174 5 7.6815 5.36875 7.02513 6.02513C6.36875 6.6815 6 7.57174 6 8.5C6 9.42826 6.36875 10.3185 7.02513 10.9749C7.6815 11.6313 8.57174 12 9.5 12H14.5C15.4283 12 16.3185 12.3687 16.9749 13.0251C17.6313 13.6815 18 14.5717 18 15.5C18 16.4283 17.6313 17.3185 16.9749 17.9749C16.3185 18.6313 15.4283 19 14.5 19H6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <h1>Moneywise</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Transactions</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="settings.html" class="active">Settings</a></li>
+            </ul>
+        </nav>
+
+        <div class="settings-header">
+            <h1>Settings</h1>
+        </div>
+
+        <div class="settings-grid">
+            <div class="settings-card">
+                <h2>Profile Settings</h2>
+                <form id="profileForm" class="settings-form">
+                    <div class="form-group">
+                        <label for="fullName">Full Name</label>
+                        <input type="text" id="fullName" placeholder="Your full name">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" placeholder="Your email address">
+                    </div>
+                    <div class="avatar-upload">
+                        <img id="avatarPreview" src="assets/default-avatar.png" alt="Profile Picture">
+                        <label for="avatar" class="upload-button">
+                            <i data-lucide="upload" class="upload-icon"></i>
+                            Change Picture
+                        </label>
+                        <input type="file" id="avatar" accept="image/*">
+                    </div>
+                    <button type="submit" class="settings-button">Save Profile</button>
+                </form>
+            </div>
+
+            <div class="settings-card">
+                <h2>Budget Settings</h2>
+                <form id="budgetForm" class="settings-form">
+                    <div class="budget-categories">
+                        <div class="form-group">
+                            <label for="housingBudget">Housing</label>
+                            <input type="number" id="housingBudget" placeholder="Monthly budget" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label for="foodBudget">Food</label>
+                            <input type="number" id="foodBudget" placeholder="Monthly budget" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label for="transportationBudget">Transportation</label>
+                            <input type="number" id="transportationBudget" placeholder="Monthly budget" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label for="entertainmentBudget">Entertainment</label>
+                            <input type="number" id="entertainmentBudget" placeholder="Monthly budget" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label for="utilitiesBudget">Utilities</label>
+                            <input type="number" id="utilitiesBudget" placeholder="Monthly budget" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label for="otherBudget">Other</label>
+                            <input type="number" id="otherBudget" placeholder="Monthly budget" step="0.01">
+                        </div>
+                    </div>
+                    <button type="submit" class="settings-button">Save Budget</button>
+                </form>
+            </div>
+
+            <div class="settings-card">
+                <h2>App Settings</h2>
+                <form id="appSettingsForm" class="settings-form">
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="enableNotifications">
+                            <span>Enable Notifications</span>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label for="currency">Currency</label>
+                        <select id="currency">
+                            <option value="USD">USD ($)</option>
+                            <option value="EUR">EUR (€)</option>
+                            <option value="GBP">GBP (£)</option>
+                            <option value="JPY">JPY (¥)</option>
+                            <option value="CAD">CAD ($)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="dateFormat">Date Format</label>
+                        <select id="dateFormat">
+                            <option value="MM/DD/YYYY">MM/DD/YYYY</option>
+                            <option value="DD/MM/YYYY">DD/MM/YYYY</option>
+                            <option value="YYYY-MM-DD">YYYY-MM-DD</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="settings-button">Save Settings</button>
+                </form>
+            </div>
+
+            <div class="settings-card danger-zone">
+                <h2>Danger Zone</h2>
+                <div class="danger-actions">
+                    <div class="danger-action">
+                        <div>
+                            <h3>Clear All Data</h3>
+                            <p>This will permanently delete all your transactions and budget data.</p>
+                        </div>
+                        <button type="button" id="clearDataBtn" class="danger-button">Clear Data</button>
+                    </div>
+                    <div class="danger-action">
+                        <div>
+                            <h3>Delete Account</h3>
+                            <p>This will permanently delete your account and all associated data.</p>
+                        </div>
+                        <button type="button" id="deleteAccountBtn" class="danger-button">Delete Account</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="settings.js"></script>
+</body>
+</html>
