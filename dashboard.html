@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com">
+    <title>Dashboard - Moneywise Budget Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="theme-toggle-wrapper">
+            <label class="theme-switch">
+                <input type="checkbox" id="theme-toggle">
+                <span class="slider">
+                    <i data-lucide="sun" class="light-icon"></i>
+                    <i data-lucide="moon" class="dark-icon"></i>
+                </span>
+            </label>
+        </div>
+
+        <nav class="main-nav">
+            <div class="logo-container">
+                <svg class="logo" width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 1V23M17 5H9.5C8.57174 5 7.6815 5.36875 7.02513 6.02513C6.36875 6.6815 6 7.57174 6 8.5C6 9.42826 6.36875 10.3185 7.02513 10.9749C7.6815 11.6313 8.57174 12 9.5 12H14.5C15.4283 12 16.3185 12.3687 16.9749 13.0251C17.6313 13.6815 18 14.5717 18 15.5C18 16.4283 17.6313 17.3185 16.9749 17.9749C16.3185 18.6313 15.4283 19 14.5 19H6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <h1>Moneywise</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Transactions</a></li>
+                <li><a href="dashboard.html" class="active">Dashboard</a></li>
+                <li><a href="settings.html">Settings</a></li>
+            </ul>
+        </nav>
+
+        <div class="dashboard-header">
+            <h1>Financial Dashboard</h1>
+            <div class="date-filter">
+                <select id="period-selector">
+                    <option value="month">This Month</option>
+                    <option value="quarter">This Quarter</option>
+                    <option value="year">This Year</option>
+                    <option value="all">All Time</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="dashboard-grid">
+            <div class="metric-card">
+                <div class="metric-title">Total Income</div>
+                <div class="metric-value income">$<span id="total-income">0.00</span></div>
+                <div class="metric-change" id="income-change">+0% from last period</div>
+            </div>
+            
+            <div class="metric-card">
+                <div class="metric-title">Total Expenses</div>
+                <div class="metric-value expense">$<span id="total-expenses">0.00</span></div>
+                <div class="metric-change" id="expense-change">+0% from last period</div>
+            </div>
+            
+            <div class="metric-card">
+                <div class="metric-title">Net Savings</div>
+                <div class="metric-value">$<span id="net-savings">0.00</span></div>
+                <div class="metric-change" id="savings-change">+0% from last period</div>
+            </div>
+            
+            <div class="metric-card">
+                <div class="metric-title">Budget Status</div>
+                <div class="metric-value" id="budget-status">On Track</div>
+                <div class="metric-change" id="budget-remaining">$0.00 remaining</div>
+            </div>
+        </div>
+
+        <div class="chart-grid">
+            <div class="chart-card">
+                <h3>Income vs. Expenses</h3>
+                <div class="chart-container">
+                    <canvas id="income-expense-chart"></canvas>
+                </div>
+            </div>
+            
+            <div class="chart-card">
+                <h3>Spending by Category</h3>
+                <div class="chart-container">
+                    <canvas id="category-chart"></canvas>
+                </div>
+            </div>
+            
+            <div class="chart-card full-width">
+                <h3>Monthly Trend</h3>
+                <div class="chart-container">
+                    <canvas id="trend-chart"></canvas>
+                </div>
+            </div>
+            
+            <div class="chart-card full-width">
+                <h3>Budget vs. Actual</h3>
+                <div class="chart-container">
+                    <canvas id="budget-chart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="dashboard.js"></script>
+</body>
+</html>
